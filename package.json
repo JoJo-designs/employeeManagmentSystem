@@ -1,0 +1,24 @@
+{
+  "name": "employee",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoJo-designs/employeeManagmentSystem.git"
+  },
+  "author": "JoJo-Designs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoJo-designs/employeeManagmentSystem/issues"
+  },
+  "homepage": "https://github.com/JoJo-designs/employeeManagmentSystem#readme",
+  "dependencies": {
+    "inquirer": "^8.0.0",
+    "mysql": "^2.18.1"
+  }
+}
