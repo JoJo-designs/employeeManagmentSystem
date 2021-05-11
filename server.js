@@ -15,15 +15,6 @@ const connection = mysql.createConnection({
     database: 'employee_DB',
   });
 
-  // Checking to see if my program can connect to the database.
-//   const checkConnect = () => {
-//     connection.query('SELECT * FROM department', (err, res) => {
-//         if (err) throw err;
-//       console.log(res);
-//     });
-//   };
-
-//   checkConnect();
 
 // Opens a frist Menu where users can slect the thing they want to do 
 
@@ -48,10 +39,13 @@ function openMenu() {
             viewAllEmployees();
         } else if (selected.select === "View employees by department") {
             viewAllByDepartment();
+        } else if (selected.select === "View employees by manager") {
+            viewAllByManager()
         }
 
     });
 }
+
 
 function viewAllEmployees() {
     // this function will collect all the data in the Employees table
@@ -63,6 +57,7 @@ function viewAllEmployees() {
 }
 
 function viewAllByDepartment() {
+  // Function calls all data from the departments and makes the department_name into a list that can be interacted with.
     connection.query('SELECT department_name FROM department', (err, results) => {
         if (err) throw err;
         // once you have the items, prompt the user for which they'd like to bid on
@@ -73,19 +68,29 @@ function viewAllByDepartment() {
               type: 'rawlist',
               choices() {
                 const departmentArray = [];
-                results.forEach(({ item_name }) => {
-                departmentArray.push(item_name);
+                results.forEach(({ department_name }) => {
+                departmentArray.push(department_name);
                 });
                 return departmentArray;
               },
               message: 'Which department do you want to look at?',
             },
           ])
-          .then((answer) => {
-            console.log(answer.department)
+          .then((select) => {
+            getDepartmentEmployees(select)
           });
       });
     };
+
+function getDepartmentEmployees(select) {
+    // Function will make a query for all employees in one department.
+    console.log(select.department)
+}
+
+function viewAllByManager() {
+    //Function that get the employees that are managers amd makes a list that can be iteracted with.
+    console.log("Pull in data from the roles table and the empolyees table")
+}
 
 
 openMenu();
