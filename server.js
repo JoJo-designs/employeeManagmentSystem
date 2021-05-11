@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
     user: 'root',
   
     // Your password
-    password: '', // need more info on hiding my password I think
+    password: 'Gy3xH2uxR62', // need more info on hiding my password I think
     database: 'employee_DB',
   });
 
@@ -77,14 +77,16 @@ function viewAllByDepartment() {
             },
           ])
           .then((select) => {
-            getDepartmentEmployees(select)
+            let departmentIdNum = results.department_id
+            console.log(departmentIdNum);
+            getDepartmentEmployees(select);
           });
       });
     };
 
 function getDepartmentEmployees(select) {
     // Function will make a query for all employees in one department.
-    console.log(select.department)
+    console.log(select)
 }
 
 function viewAllByManager() {
