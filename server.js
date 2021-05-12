@@ -41,7 +41,9 @@ function openMenu() {
             viewAllByDepartment();
         } else if (selected.select === "View employees by manager") {
             viewAllByManager()
-        }
+        } else if (selected.select === "Add new employees") {
+          addAnEmployee()
+       } 
 
     });
 }
@@ -104,5 +106,51 @@ function viewAllByManager() {
     console.log("Pull in data from the roles table and the empolyees table")
 }
 
+function addAnEmployee() {
+  console.log("adding a new employee")
+  connection.query('SELECT roles.title FROM employee_DB.roles;', (err, results) => {
+    if (err) throw err;
+    // once you have the items, prompt the user for which they'd like to bid on
+    inquirer
+      .prompt([
+        {
+            type: 'fristName',
+            name: 'input',
+            message: ' What is the enployee first name',
+        },
+        {
+          type: 'lastName',
+          name: 'input',
+          message: ' What is the enployee last name',
+        },
+        {
+          name: 'jobTitle',
+          type: 'rawlist',
+          choices() {
+            const titleArray = [];
+            results.forEach(({ title }) => {
+              titleArray.push(title);
+            });
+            return titleArray;
+          },
+          message: 'What is the job title?',
+        },
+      ])
+      .then((data) => {
+        const query = connection.query(
+          'INSERT INTO employee SET ?',
+          {
+            first_name: data.fristName,
+            last_name: data.lastName,
+            last_name: data.jobTitle,
+          },
+          (err, res) => {
+            if (err) throw err;
+            console.log(res)
+          }
+        )
+      });
+  });
+};
 
 openMenu();
