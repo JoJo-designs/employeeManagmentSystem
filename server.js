@@ -77,8 +77,6 @@ function viewAllByDepartment() {
             },
           ])
           .then((select) => {
-            let departmentIdNum = results.department_id
-            console.log(departmentIdNum);
             getDepartmentEmployees(select);
           });
       });
@@ -86,7 +84,19 @@ function viewAllByDepartment() {
 
 function getDepartmentEmployees(select) {
     // Function will make a query for all employees in one department.
-    console.log(select)
+    console.log(select);
+    console.log("Pull in data from the department table and employee table");
+    let query = 
+    'SELECT employee.first_name, employee.last_name, employee.role_id, employee.manager_id, department.department_id, department_name';
+    query +=
+    'FROM employee_DB.employee LEFT JOIN employee_DB.department ON employee.manager_id = department.department_id';
+    query +=
+    'WHERE (department_name= "?")';
+
+    connection.query(query, [select.department], (err, res) => {
+      if (err) throw err;
+      console.log(res)
+    })
 }
 
 function viewAllByManager() {
