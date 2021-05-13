@@ -1,5 +1,7 @@
 const mysql = require('mysql');
 const inquirer = require('inquirer');
+const addEmployee = require('./addEmployees');
+const viewEmployee = require('./viewEmployees');
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -36,27 +38,19 @@ function openMenu() {
     .then((selected) => {
         if(selected.select === "View all employees") {
             console.log("view employees")
-            viewAllEmployees();
+            viewEmployee.viewAllEmployees();
         } else if (selected.select === "View employees by department") {
             viewAllByDepartment();
         } else if (selected.select === "View employees by manager") {
-            viewAllByManager()
+            viewAllByManager();
         } else if (selected.select === "Add new employees") {
-          addAnEmployee()
+          addEmployee.addAnEmployee();
        } 
 
     });
 }
 
-
-function viewAllEmployees() {
-    // this function will collect all the data in the Employees table
-    console.log("this function is being called")
-    connection.query('SELECT * FROM employee', (err, res) => {
-        if (err) throw err;
-        console.table(res);
-    })   
-}
+module.exports.openMenu = openMenu;
 
 function viewAllByDepartment() {
   // Function calls all data from the departments and makes the department_name into a list that can be interacted with.
@@ -86,6 +80,7 @@ function viewAllByDepartment() {
 
 function getDepartmentEmployees(select) {
     // Function will make a query for all employees in one department.
+    // I know the link works but this fnction fails
     console.log(select);
     console.log("Pull in data from the department table and employee table");
     let query = 
@@ -103,6 +98,7 @@ function getDepartmentEmployees(select) {
 
 function viewAllByManager() {
     //Function that get the employees that are managers amd makes a list that can be iteracted with.
+    // When I get the other function working I will copie it.
     console.log("Pull in data from the roles table and the empolyees table")
 }
 
@@ -110,18 +106,13 @@ function addAnEmployee() {
   console.log("adding a new employee")
   connection.query('SELECT roles.title FROM employee_DB.roles;', (err, results) => {
     if (err) throw err;
-    // once you have the items, prompt the user for which they'd like to bid on
+    // Pulling role titles an makeing a list for them.
     inquirer
       .prompt([
         {
             type: 'fristName',
             name: 'input',
             message: ' What is the enployee first name',
-        },
-        {
-          type: 'lastName',
-          name: 'input',
-          message: ' What is the enployee last name',
         },
         {
           name: 'jobTitle',
@@ -134,6 +125,11 @@ function addAnEmployee() {
             return titleArray;
           },
           message: 'What is the job title?',
+        },
+        {
+          type: 'lastName',
+          name: 'input',
+          message: ' What is the enployee last name',
         },
       ])
       .then((data) => {
@@ -154,3 +150,4 @@ function addAnEmployee() {
 };
 
 openMenu();
+ //viewEmployee.attepted()
