@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 const inquirer = require('inquirer');
-const addEmployee = require('./addEmployees');
-const viewEmployee = require('./viewEmployees');
+//const addEmployee = require('./root/addEmployees');
+const viewEmployee = require('./root/viewEmployees');
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
     user: 'root',
   
     // Your password
-    password: '', // need more info on hiding my password I think
+    password: 'Gy3xH2uxR62', // need more info on hiding my password I think
     database: 'employee_DB',
   });
 
@@ -44,13 +44,13 @@ function openMenu() {
         } else if (selected.select === "View employees by manager") {
             viewAllByManager();
         } else if (selected.select === "Add new employees") {
-          addEmployee.addAnEmployee();
+          addAnEmployee();
        } 
 
     });
 }
-
 module.exports.openMenu = openMenu;
+
 
 function viewAllByDepartment() {
   // Function calls all data from the departments and makes the department_name into a list that can be interacted with.
@@ -100,54 +100,9 @@ function viewAllByManager() {
     //Function that get the employees that are managers amd makes a list that can be iteracted with.
     // When I get the other function working I will copie it.
     console.log("Pull in data from the roles table and the empolyees table")
-}
-
-function addAnEmployee() {
-  console.log("adding a new employee")
-  connection.query('SELECT roles.title FROM employee_DB.roles;', (err, results) => {
-    if (err) throw err;
-    // Pulling role titles an makeing a list for them.
-    inquirer
-      .prompt([
-        {
-            type: 'fristName',
-            name: 'input',
-            message: ' What is the enployee first name',
-        },
-        {
-          name: 'jobTitle',
-          type: 'rawlist',
-          choices() {
-            const titleArray = [];
-            results.forEach(({ title }) => {
-              titleArray.push(title);
-            });
-            return titleArray;
-          },
-          message: 'What is the job title?',
-        },
-        {
-          type: 'lastName',
-          name: 'input',
-          message: ' What is the enployee last name',
-        },
-      ])
-      .then((data) => {
-        const query = connection.query(
-          'INSERT INTO employee SET ?',
-          {
-            first_name: data.fristName,
-            last_name: data.lastName,
-            last_name: data.jobTitle,
-          },
-          (err, res) => {
-            if (err) throw err;
-            console.log(res)
-          }
-        )
-      });
-  });
 };
 
+
 openMenu();
- //viewEmployee.attepted()
+// This checked to make sure the files were linked properly it works
+//viewEmployee.attepted()
