@@ -38,7 +38,7 @@ function openMenu() {
                         "Remove an employee",
                         "Add a Department",
                         "Add a job title",
-                        "Edit a employee job",
+                        "Edit an employee job",
                         "Exit",
             ]
           }
@@ -58,7 +58,7 @@ function openMenu() {
             addDepartment.addDepartment();
         } else if (selected.selection === "Add a job title") {
             addjob.getDepartment();
-        } else if (selected.selection === "Edit a employee job") {
+        } else if (selected.selection === "Edit an employee job") {
             update.updateEmployees();
         }else {
             console.log("Good-bye")
