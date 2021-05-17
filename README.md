@@ -25,7 +25,7 @@
   
   ##### Main Menu Options 
   | Options Text | Purpose |
-  |-------|-------------|
+  |:---- |:---|
   |View all employees | Creates a table with all employees in the database |
   |View all by departments | Allows the user to select a single department and creates a table with only employees from that department |
   |View all by job title | Allows the user to select a single job title and creates a table with only employees with that job title |
