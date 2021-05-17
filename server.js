@@ -62,9 +62,7 @@ function openMenu() {
             update.updateEmployees();
         }else {
             console.log("Good-bye")
-            // need a way to kill this program when exit is selected. 
-            // process.exit()dosn't work.
-            //process.exit()
+            process.exit(0)
         }
     })
 }
