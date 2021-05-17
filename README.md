@@ -12,10 +12,6 @@
 
   [License](#License)
 
-  [Contributing](#Contributing)
-
-  [Test](#Test)
-
   [Questions](#Questions)
 
   ### Installation
