@@ -42,10 +42,6 @@
   Projects with the CC0 license allows users to copy, modify, distribute and perform the work, even for commercial purposes, without asking permission.
  ##### For a full overview please visit
 [CCO](https://creativecommons.org/publicdomain/zero/1.0/legalcode)  
-  ### Contributing
-  sdse
-  ### Test
-  no test for built for this appication
   ### Questions
   [JoJo-Designs](https://github.com/JoJo-Designs)
   Please contact Jodi at jodiladouceur.design@gmail.com with any questions
