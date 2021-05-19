@@ -3,22 +3,8 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql');
 const menu = require('../server');
+const connection = require('../connect/connection');
 
-// connect to the server I hope that I can get this to be exported in the server file so I only need it once
-const connection = mysql.createConnection({
-    host: 'localhost',
-  
-    //  port; 
-    port: 3306,
-  
-    //  username
-    user: 'root',
-  
-    //  password
-    password: 'Gy3xH2uxR62', // need more info on hiding my password I think
-    database: 'employee_DB',
-  });
-  module.exports.connection = connection;
 
   const employeeID = ["data"]
   const jobID = ["data"]
@@ -26,17 +12,21 @@ const connection = mysql.createConnection({
 
 function updateEmployees() {
     // gets a list of the employees first names and then gets the id for the emplyoee
-    connection.query('SELECT first_name FROM employee', (err, results) => {
+    connection.query('SELECT * FROM employee', (err, results) => {
         if (err) throw err;
         inquirer
         .prompt([
             {
                 name: 'employees',
-                type: 'rawlist',
+                type: 'list',
                 choices() {
                 const namesArray = [];
-                results.forEach(({ first_name }) => {
-                namesArray.push(first_name);
+                results.forEach((names) => {
+                namesArray.push({
+                    name: names.first_name + ' ' + names.last_name,
+                    value: names.employee_id
+                });
+
                 });
                 return namesArray;
                 },
@@ -45,17 +35,12 @@ function updateEmployees() {
         ])
         .then((data) => {
             console.log(data)
-            connection.query('SELECT * FROM employee_DB.employee WHERE ?',
-            {
-                first_name: data.employees
-            },
-            (err, res) => {
-                if (err) throw err;
                 employeeID.splice(0, 1)
-                employeeID.push(res[0].employee_id)
+                employeeID.push(data.employees)
+                console.log(employeeID)
                 employeeRoles()
                 // calls a function that will call all the job titles then make a list of them
-            })
+           // })
         })
     })
 }
@@ -69,7 +54,7 @@ function employeeRoles() {
             .prompt([
                 {
                     name: 'jobTitle',
-                    type: 'rawlist',
+                    type: 'list',
                     choices() {
                     const titleArray = [];
                     results.forEach(({ title }) => {

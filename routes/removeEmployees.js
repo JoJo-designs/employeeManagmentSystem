@@ -1,41 +1,33 @@
 // File is for all functions that will remove an employees
 
+// Delete files list is working so I can use it as a refreance to fix the rest.
+
 const inquirer = require('inquirer');
 const mysql = require('mysql');
 const menu = require('../server');
+const connection = require('../connect/connection');
 
-// connect to the server I hope that I can get this to be exported in the server file so I only need it once
-const connection = mysql.createConnection({
-    host: 'localhost',
-  
-    //  port; 
-    port: 3306,
-  
-    //  username
-    user: 'root',
-  
-    //  password
-    password: 'Gy3xH2uxR62', // need more info on hiding my password I think
-    database: 'employee_DB',
-  });
-  module.exports.connection = connection;
 
   const employeesID = ["data"];
 
 function removeEmployee() {
   // Functions call the names of employees then gets the data id of the emplyoees
-  connection.query('SELECT first_name FROM employee_DB.employee', (err,results) => {
+  connection.query('SELECT * FROM employee_DB.employee', (err,results) => {
     if (err) throw err;
     //Make list that can be selected from
         inquirer
         .prompt([
             {
                 name: 'employee',
-                type: 'rawlist',
+                type: 'list',
                 choices() {
                 const nameArray = [];
-                results.forEach(({ first_name }) => {
-                nameArray.push(first_name);
+                results.forEach((names) => {
+                nameArray.push({
+                  name: names.first_name + ' ' + names.last_name, 
+                  value: names.employee_id
+                });
+
                 });
                 return nameArray;
                 },
@@ -43,32 +35,18 @@ function removeEmployee() {
               },
         ])
         .then((remove) => {
-            connection.query('SELECT * FROM employee_DB.employee WHERE ?',
+          console.log(remove)
+            connection.query('DELETE FROM employee WHERE ?',
             {
-                first_name: remove.employee
-            },
+              employee_id: remove.employee
+            }, 
             (err, res) => {
-                if (err) throw err;
-                employeesID.splice(0, 1)
-                employeesID.push(res[0].employee_id)
-                deleteed(remove)
+              if (err) throw err;
+              console.log(`Employee was removed`);
+              menu.openMenu();
             })
         })
     })
-}
-
-function deleteed(remove) {
-  connection.query(
-    'DELETE FROM employee WHERE ?',
-    {
-      employee_id: employeesID[0]
-    }, 
-    (err, res) => {
-      if (err) throw err;
-      console.log(`Employee ${remove.employee} was removed`);
-      menu.openMenu();
-    }
-  )
 }
 
 
