@@ -7,21 +7,6 @@ const addDepartment = require('./routes/addDepartment');
 const addjob = require('./routes/addJobs');
 const update = require('./routes/updateEmployees');
 
-// // this dosent work right now. I hope that I can get help making it export so I only need this once
-// const connection = mysql.createConnection({
-//     host: 'localhost',
-  
-//     //  port; 
-//     port: 3306,
-  
-//     //  username
-//     user: 'root',
-  
-//     //  password
-//     password: 'Gy3xH2uxR62', // need more info on hiding my password I think
-//     database: 'employee_DB',
-//   });
-//   module.exports.connection = connection;
   
 function openMenu() {
     //frist function that opens when the program begin and main menu
