@@ -11,7 +11,7 @@ const connection = require('../connect/connection');
 
 
 function updateEmployees() {
-    // gets a list of the employees first names and then gets the id for the emplyoee
+    // gets a list of the employees names and then pushes the id of the selected to an array
     connection.query('SELECT * FROM employee', (err, results) => {
         if (err) throw err;
         inquirer

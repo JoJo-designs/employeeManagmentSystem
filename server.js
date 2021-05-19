@@ -17,6 +17,8 @@ function openMenu() {
               name: 'selection',
               message: 'What do you want to do',
               choices: ["View all employees",
+                        "View all departments",
+                        "View all job titles",
                         "View all by departments",
                         "View all by job title",
                         "Add a new employee",
@@ -31,7 +33,11 @@ function openMenu() {
         .then((selected) => {
           if(selected.selection === "View all employees") {
             viewEmployee.viewAllEmployees();
-        } else if (selected.selection === "View all by departments"){
+        }  else if (selected.selection === "View all departments"){
+                viewEmployee.logDepartments()
+        }  else if (selected.selection === "View all job titles"){
+            viewEmployee.lookJobTitles()
+        }  else if (selected.selection === "View all by departments"){
             viewEmployee.getDepartments()
         } else if (selected.selection === "View all by job title"){
             viewEmployee.getJobTitle()

@@ -16,6 +16,23 @@ function viewAllEmployees() {
     }); 
 }
 
+function logDepartments() {
+    // this function will collect all the departments in the table
+    connection.query('SELECT * FROM department', (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        menu.openMenu();
+    }); 
+}
+
+function lookJobTitles() {
+    // this function will collect all the job titles in the table
+    connection.query('SELECT * FROM roles', (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        menu.openMenu();
+    }); 
+}
 
 
 function getDepartments() {
@@ -110,5 +127,7 @@ function getJobEmployee(selected) {
 
 
 module.exports.viewAllEmployees = viewAllEmployees;
+module.exports.logDepartments = logDepartments;
+module.exports.lookJobTitles = lookJobTitles;
 module.exports.getDepartments = getDepartments;
 module.exports.getJobTitle = getJobTitle;
