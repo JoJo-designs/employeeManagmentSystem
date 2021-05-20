@@ -74,7 +74,6 @@ function getDepartments() {
       if (err) throw err;
       departme.splice(0, 1)
       departme.push(res[0].department_id)
-      console.log(departme);
       inquirer
         .prompt([
             {
@@ -94,9 +93,6 @@ function getDepartments() {
             job.splice(0, 1)
             job.push(roles.roles)
             // Will call a function that will post the new employee to the database.
-            // I think I will need to call a function that will pull the get the id for 
-            //the job title instead of the the job title itself.
-            //addEmployee()
             jobId(roles)
         })
     });

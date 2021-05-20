@@ -35,7 +35,6 @@ function removeEmployee() {
               },
         ])
         .then((remove) => {
-          console.log(remove)
             connection.query('DELETE FROM employee WHERE ?',
             {
               employee_id: remove.employee
