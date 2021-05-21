@@ -3,7 +3,7 @@
   ### Description
   This is a node program that can store and persist data on employees that work for a company. The program has the capabilty to sort employees by department, job tiles and view all employees. Users can add new departments, job titles, and employees. Employees can be edited and removed.
 
-  [Video Demo](#)
+  [Video Demo](https://youtu.be/xAfpoZ4D5io)
 
   ### Table of Content
   [Installation](#Installation)
